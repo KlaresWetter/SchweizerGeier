@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schweizer Geier Sightseeing</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: black; /* Hauptfarbe schwarz */
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .background-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)); /* Linearer Verlauf */
+            z-index: 0; /* Hinter den Bildern */
+        }
+
+        .title {
+            font-size: 48px; /* Noch größere Schriftgröße */
+            color: white; /* Textfarbe weiß */
+            font-weight: bold; /* Fett */
+            font-style: italic; /* Kursiv */
+            margin-bottom: 40px; /* Abstand zur Galerie */
+            z-index: 1; /* Vor dem Hintergrund */
+            text-align: center; /* Zentrieren des Textes */
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            z-index: 1; /* Vor dem Hintergrund */
+        }
+
+        .gallery img {
+            width: 350px;
+            height: auto;
+            cursor: pointer;
+            border: 3px solid white; /* Weiße Akzente */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery img.clicked {
+            transform: scale(1.2); /* Zoom-Effekt */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.7); /* Leucht-Effekt */
+        }
+
+        /* Puls-Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .gallery img.clicked.pulse {
+            animation: pulse 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-effect"></div> <!-- Hintergrund-Effekt -->
+
+    <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
+
+    <div class="gallery">
+        <img src="Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
+        <img src="bild2.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
+        <img src="bild3.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
+        <img src="bild4.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
+        <!-- Weitere Bilder hier -->
+    </div>
+
+    <audio id="sound">
+        <source src="Unbenanntes-Video (online-audio-converter.com).mp3" type="audio/mpeg">
+        Dein Browser unterstützt kein Audioelement.
+    </audio>
+
+    <script>
+        function playSoundAndAnimate(image) {
+            var sound = document.getElementById("sound");
+
+            // Sound abspielen
+            sound.play();
+
+            // Klasse hinzufügen, um den Effekt auszulösen
+            image.classList.add("clicked", "pulse");
+
+            // Nach 0.8 Sekunden die Klasse wieder entfernen, damit man wieder klicken kann
+            setTimeout(function() {
+                image.classList.remove("clicked", "pulse");
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
