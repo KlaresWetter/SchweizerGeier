@@ -80,7 +80,9 @@
 
     <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
     <div class="textbox-container">
-        <input type="text" class="textbox" placeholder="Test">
+        <div class="static-textbox">
+            Willkommen zum Schweizer Geier Sightseeing! Entdecke die atemberaubende Welt der Schweizer Geier.
+        </div>
     </div>
     
     <style>
@@ -91,25 +93,18 @@
             z-index: 1; /* Vor dem Hintergrund */
         }
     
-        .textbox {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid white; /* Weiße Umrandung */
-            background-color: transparent;
+        .static-textbox {
+            width: 400px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1); /* Halbtransparentes Weiß */
             color: white;
-            outline: none;
+            font-size: 18px;
+            border: 2px solid white; /* Weiße Umrandung */
+            text-align: center;
             border-radius: 4px; /* Leichte Abrundung der Ecken */
         }
+    </style>
     
-        .textbox::placeholder {
-            color: rgba(255, 255, 255, 0.7); /* Platzhalter leicht transparent */
-        }
-    
-        .textbox:focus {
-            border-color: rgba(255, 255, 255, 0.9); /* Border-Farbe bei Fokus */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Schöner Glanz bei Fokus */
-        }
     </style>
     <div class="gallery">
         <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
