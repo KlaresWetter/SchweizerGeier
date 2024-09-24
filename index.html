@@ -28,7 +28,7 @@
         }
 
         .title {
-            font-size: 56px; /* Noch größere Schriftgröße */
+            font-size: 72px; /* Größere Schrift */
             color: white; /* Textfarbe weiß */
             font-weight: bold; /* Fett */
             font-style: italic; /* Kursiv */
@@ -53,6 +53,7 @@
             border: 3px solid white; /* Weiße Akzente */
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
+
         /* Puls-Animation */
         @keyframes pulse {
             0% {
@@ -79,10 +80,10 @@
     <div class="background-effect"></div> <!-- Hintergrund-Effekt -->
 
     <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
+    
     <div class="textbox-container">
         <div class="static-textbox">
             Willkommen zum Schweizer Geier Sightseeing!<br>
-
             <a href="https://medal.tv/games/garrys-mod/clips/iuCgPJRRS8tg7eXBb/d1337JtKo453?invite=cr-MSxGY20sMTkxNDA1NjQ4LA" target="_blank">
                 Das Original...</a>
         </div>
@@ -107,22 +108,30 @@
             border-radius: 4px; /* Leichte Abrundung der Ecken */
         }
     </style>
-    
-    </style>
+
     <div class="gallery">
-        <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
-        <img src="Sources/Pitt222.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
-        <img src="Sources/Pitt232.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this)">
+        <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound1')">
+        <img src="Sources/Pitt222.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound2')">
+        <img src="Sources/Pitt232.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound3')">
         <!-- Weitere Bilder hier -->
     </div>
 
-    <audio id="sound">
+    <!-- Unterschiedliche Audio Dateien -->
+    <audio id="sound1">
         <source src="Sources/Unbenanntes-Video (online-audio-converter.com).mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="sound2">
+        <source src="Sources/Sound 2.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="sound3">
+        <source src="Sources/Sound 2.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function playSoundAndAnimate(image) {
-            var sound = document.getElementById("sound");
+        function playSoundAndAnimate(image, soundId) {
+            var sound = document.getElementById(soundId);
 
             // Sound abspielen
             sound.play();
