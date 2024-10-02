@@ -47,17 +47,38 @@
             z-index: 1;
         }
 
+        .img-container {
+            position: relative; /* Damit das Overlay über dem Bild liegt */
+        }
+
         .gallery img {
             width: 450px;
             height: auto;
             cursor: pointer;
             border: 3px solid white;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: inline-block;
         }
 
-        .gallery img.disabled {
-            opacity: 0.5; /* Bild transparent machen, wenn es deaktiviert ist */
-            pointer-events: none; /* Klicks auf deaktivierte Bilder verhindern */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
+            display: none; /* Standardmäßig versteckt */
+            z-index: 1; /* Overlay über dem Bild */
+        }
+
+        .locked-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2; /* Icon über dem Overlay */
+            display: none; /* Standardmäßig versteckt */
+            width: 100px; /* Anpassen der Größe nach Bedarf */
         }
 
         @keyframes pulse {
@@ -145,9 +166,21 @@
     </div>
     
     <div class="gallery">
-        <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1')">
-        <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2')" style="display: none;">
-        <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3')" style="display: none;">
+        <div class="img-container">
+            <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1')">
+            <div class="overlay" id="overlay1" style="display:none;"></div>
+            <img src="Sources/chains.png" class="locked-icon" id="lockedIcon1" alt="Locked">
+        </div>
+        <div class="img-container">
+            <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2')">
+            <div class="overlay" id="overlay2" style="display:block;"></div>
+            <img src="Sources/chains.png" class="locked-icon" id="lockedIcon2" alt="Locked">
+        </div>
+        <div class="img-container">
+            <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3')">
+            <div class="overlay" id="overlay3" style="display:block;"></div>
+            <img src="Sources/chains.png" class="locked-icon" id="lockedIcon3" alt="Locked">
+        </div>
     </div>
 
     <!-- Fortschrittsleiste am unteren Ende -->
@@ -175,6 +208,12 @@
         function playSoundAndAnimate(image, soundId) {
             var sound = document.getElementById(soundId);
 
+            // Überprüfen, ob das Bild freigeschaltet ist
+            if (image.classList.contains("disabled")) {
+                alert("Dieses Bild ist noch gesperrt.");
+                return; // Früher zurückkehren, wenn das Bild gesperrt ist
+            }
+
             // Sound abspielen
             sound.play();
 
@@ -191,25 +230,4 @@
             if (completedSounds < 100) { // Maximale Anzahl der Fortschrittsstufen ist 100
                 completedSounds++; // Erhöhe die Anzahl der vollständig abgespielten Sounds um 1
                 var progressPercent = completedSounds; // Fortschritt in Prozent
-                document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste anpassen
-                document.getElementById("progressText").innerText = progressPercent.toFixed(0) + "%"; // Fortschritt als Text anzeigen
-                
-                // Bilder freischalten
-                unlockImages(progressPercent);
-            }
-        }
-
-        function unlockImages(progress) {
-            // Freischalten der Bilder bei 50% und 100%
-            if (progress === 50) {
-                document.querySelectorAll('.gallery img')[1].classList.remove("disabled");
-                document.querySelectorAll('.gallery img')[1].style.display = "block"; // Bild sichtbar machen
-            } else if (progress === 100) {
-                document.querySelectorAll('.gallery img')[2].classList.remove("disabled");
-                document.querySelectorAll('.gallery img')[2].style.display = "block"; // Bild sichtbar machen
-            }
-        }
-    </script>
-
-</body>
-</html>
+                document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
