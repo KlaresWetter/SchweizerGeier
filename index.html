@@ -67,7 +67,7 @@
             right: 0;
             bottom: 0;
             background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
-            display: none; /* Standardmäßig versteckt */
+            display: block; /* Standardmäßig sichtbar */
             z-index: 1; /* Overlay über dem Bild */
         }
 
@@ -77,8 +77,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2; /* Icon über dem Overlay */
-            display: none; /* Standardmäßig versteckt */
             width: 100px; /* Anpassen der Größe nach Bedarf */
+            display: block; /* Standardmäßig sichtbar */
         }
 
         @keyframes pulse {
@@ -167,17 +167,17 @@
     
     <div class="gallery">
         <div class="img-container">
-            <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1')">
-            <div class="overlay" id="overlay1" style="display:none;"></div>
+            <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1', 50)">
+            <div class="overlay" id="overlay1"></div>
         </div>
         <div class="img-container">
-            <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2')">
-            <div class="overlay" id="overlay2" style="display:block;"></div>
+            <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2', 100)">
+            <div class="overlay" id="overlay2"></div>
             <img src="Sources/chains.png" class="locked-icon" id="lockedIcon2" alt="Locked">
         </div>
         <div class="img-container">
-            <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3')">
-            <div class="overlay" id="overlay3" style="display:block;"></div>
+            <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3', 100)">
+            <div class="overlay" id="overlay3"></div>
             <img src="Sources/chains.png" class="locked-icon" id="lockedIcon3" alt="Locked">
         </div>
     </div>
@@ -204,7 +204,7 @@
     <script>
         var completedSounds = 0; // Anzahl der vollständig abgespielten Sounds
 
-        function playSoundAndAnimate(image, soundId) {
+        function playSoundAndAnimate(image, soundId, unlockPercent) {
             var sound = document.getElementById(soundId);
 
             // Überprüfen, ob das Bild freigeschaltet ist
@@ -223,10 +223,18 @@
             setTimeout(function() {
                 image.classList.remove("clicked", "pulse");
             }, 800);
+
+            // Fortschritt aktualisieren und Bilder freischalten
+            if (completedSounds < unlockPercent) {
+                completedSounds = unlockPercent;
+                updateProgress();
+            }
         }
 
         function updateProgress() {
-            if (completedSounds < 100) { // Maximale Anzahl der Fortschrittsstufen ist 100
-                completedSounds++; // Erhöhe die Anzahl der vollständig abgespielten Sounds um 1
+            if (completedSounds <= 100) { // Maximale Anzahl der Fortschrittsstufen ist 100
                 var progressPercent = completedSounds; // Fortschritt in Prozent
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
+                document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
+                
+                // Freischalten
