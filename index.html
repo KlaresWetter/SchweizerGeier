@@ -55,6 +55,11 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
+        .gallery img.disabled {
+            opacity: 0.5; /* Bild transparent machen, wenn es deaktiviert ist */
+            pointer-events: none; /* Klicks auf deaktivierte Bilder verhindern */
+        }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -140,9 +145,9 @@
     </div>
     
     <div class="gallery">
-        <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound1')">
-        <img src="Sources/Pitt222.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound2')">
-        <img src="Sources/Pitt232.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound3')">
+        <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1')">
+        <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2')" style="display: none;">
+        <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3')" style="display: none;">
     </div>
 
     <!-- Fortschrittsleiste am unteren Ende -->
@@ -188,12 +193,23 @@
                 var progressPercent = completedSounds; // Fortschritt in Prozent
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste anpassen
                 document.getElementById("progressText").innerText = progressPercent.toFixed(0) + "%"; // Fortschritt als Text anzeigen
+                
+                // Bilder freischalten
+                unlockImages(progressPercent);
+            }
+        }
+
+        function unlockImages(progress) {
+            // Freischalten der Bilder bei 50% und 100%
+            if (progress === 50) {
+                document.querySelectorAll('.gallery img')[1].classList.remove("disabled");
+                document.querySelectorAll('.gallery img')[1].style.display = "block"; // Bild sichtbar machen
+            } else if (progress === 100) {
+                document.querySelectorAll('.gallery img')[2].classList.remove("disabled");
+                document.querySelectorAll('.gallery img')[2].style.display = "block"; // Bild sichtbar machen
             }
         }
     </script>
 
 </body>
 </html>
-
-
-
