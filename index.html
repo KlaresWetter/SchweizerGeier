@@ -207,7 +207,7 @@
         function playSoundAndAnimate(image, soundId, unlockPercent) {
             var sound = document.getElementById(soundId);
 
-            // Überprüfen, ob das Bild freigeschaltet ist
+            // Überprüfen, ob das Bild freigeschaltet ist (nur für die gesperrten Bilder)
             if (image.classList.contains("disabled") && completedSounds < unlockPercent) {
                 alert("Dieses Bild ist noch gesperrt.");
                 return; // Früher zurückkehren, wenn das Bild gesperrt ist
@@ -238,12 +238,3 @@
                 document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
                 
                 // Freischalten des zweiten und dritten Bildes
-                if (progressPercent >= 50) {
-                    unlockImage(2);
-                }
-                if (progressPercent >= 100) {
-                    unlockImage(3);
-                }
-            }
-        }
-
