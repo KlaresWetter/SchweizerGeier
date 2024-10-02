@@ -237,4 +237,17 @@
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
                 document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
                 
-                // Freischalten des
+                // Freischalten des zweiten Bildes
+                if (progressPercent >= 100) {
+                    document.querySelectorAll(".disabled").forEach(function(img) {
+                        img.classList.remove("disabled"); // Entfernen der Klasse 'disabled'
+                        img.nextElementSibling.style.display = "none"; // Overlay ausblenden
+                        img.nextElementSibling.nextElementSibling.style.display = "none"; // Icon ausblenden
+                    });
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
