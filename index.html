@@ -208,7 +208,7 @@
             var sound = document.getElementById(soundId);
 
             // Überprüfen, ob das Bild freigeschaltet ist
-            if (image.classList.contains("disabled")) {
+            if (image.classList.contains("disabled") && completedSounds < unlockPercent) {
                 alert("Dieses Bild ist noch gesperrt.");
                 return; // Früher zurückkehren, wenn das Bild gesperrt ist
             }
@@ -245,4 +245,5 @@
                     unlockImage(3);
                 }
             }
-       
+        }
+
