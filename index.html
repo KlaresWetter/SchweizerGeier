@@ -98,7 +98,7 @@
             background-color: rgba(255, 255, 255, 0.2);
             border: 3px solid white;
             border-radius: 5px;
-            margin: 20px 0;
+            margin: 30px 0 10px 0; /* Abstand oben und unten */
             position: relative;
             z-index: 1;
         }
@@ -127,12 +127,6 @@
 
     <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
 
-    <!-- Fortschrittsleiste -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-        <div class="progress-text" id="progressText">0%</div>
-    </div>
-
     <div class="textbox-container">
         <div class="static-textbox">
             Willkommen zum Schweizer Geier Sightseeing!<br>
@@ -148,6 +142,12 @@
         <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound1')">
         <img src="Sources/Pitt222.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound2')">
         <img src="Sources/Pitt232.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound3')">
+    </div>
+
+    <!-- Fortschrittsleiste am unteren Ende -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText">0%</div>
     </div>
 
     <!-- Unterschiedliche Audio Dateien -->
