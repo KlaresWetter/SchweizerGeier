@@ -67,7 +67,7 @@
             right: 0;
             bottom: 0;
             background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
-            display: block; /* Standardmäßig sichtbar */
+            display: none; /* Standardmäßig versteckt */
             z-index: 1; /* Overlay über dem Bild */
         }
 
@@ -78,7 +78,7 @@
             transform: translate(-50%, -50%);
             z-index: 2; /* Icon über dem Overlay */
             width: 100px; /* Anpassen der Größe nach Bedarf */
-            display: block; /* Standardmäßig sichtbar */
+            display: none; /* Standardmäßig versteckt */
         }
 
         @keyframes pulse {
@@ -168,7 +168,7 @@
     <div class="gallery">
         <div class="img-container">
             <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1', 50)">
-            <!-- Overlay und Icon für das erste Bild entfernt -->
+            <!-- Overlay für das erste Bild entfernt -->
         </div>
         <div class="img-container">
             <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2', 100)">
@@ -237,4 +237,4 @@
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
                 document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
                 
-                // Freischalten des zweiten und dritten Bildes
+                // Freischalten des
