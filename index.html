@@ -32,7 +32,7 @@
             color: white;
             font-weight: bold;
             font-style: italic;
-            margin-top: 5px; /* Überschrift weiter nach oben verschieben */
+            margin-top: 5px;
             margin-bottom: 60px;
             z-index: 1;
             text-align: center;
@@ -99,7 +99,7 @@
             background-color: rgba(255, 255, 255, 0.2);
             border: 3px solid white;
             border-radius: 5px;
-            margin: 60px 0 40px 0; /* Abstand zur Galerie nach unten */
+            margin: 60px 0 40px 0;
             position: relative;
             z-index: 1;
         }
@@ -152,20 +152,20 @@
     </div>
 
     <!-- Unterschiedliche Audio Dateien -->
-    <audio id="sound1">
+    <audio id="sound1" onended="updateProgress()">
         <source src="Sources/Sound 1.mp3" type="audio/mpeg">
     </audio>
     
-    <audio id="sound2">
+    <audio id="sound2" onended="updateProgress()">
         <source src="Sources/Sound 2.mp3" type="audio/mpeg">
     </audio>
 
-    <audio id="sound3">
+    <audio id="sound3" onended="updateProgress()">
         <source src="Sources/Sound 3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        var clicks = 0; // Anzahl der Klicks
+        var completedSounds = 0; // Anzahl der vollständig abgespielten Sounds
 
         function playSoundAndAnimate(image, soundId) {
             var sound = document.getElementById(soundId);
@@ -180,15 +180,12 @@
             setTimeout(function() {
                 image.classList.remove("clicked", "pulse");
             }, 800);
-
-            // Klicks erhöhen und Fortschrittsleiste aktualisieren
-            updateProgress();
         }
 
         function updateProgress() {
-            if (clicks < 100) {
-                clicks++; // Erhöhe Klicks um 1
-                var progressPercent = (clicks / 100) * 100; // Berechne den Fortschritt
+            if (completedSounds < 100) { // Maximale Anzahl der Fortschrittsstufen ist 100
+                completedSounds++; // Erhöhe die Anzahl der vollständig abgespielten Sounds um 1
+                var progressPercent = completedSounds; // Fortschritt in Prozent
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste anpassen
                 document.getElementById("progressText").innerText = progressPercent.toFixed(0) + "%"; // Fortschritt als Text anzeigen
             }
@@ -197,5 +194,6 @@
 
 </body>
 </html>
+
 
 
