@@ -32,10 +32,29 @@
             color: white;
             font-weight: bold;
             font-style: italic;
-            margin-top: 5px; /* Überschrift weiter nach oben verschieben */
-            margin-bottom: 80px;
+            margin-top: 20px; /* Überschrift weiter nach oben verschieben */
+            margin-bottom: 60px; /* Weniger Abstand unter der Überschrift */
             z-index: 1;
             text-align: center;
+        }
+
+        .textbox-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 0px; /* Kein Abstand nach oben */
+            margin-bottom: 100px; /* Deutlich größerer Abstand zur Bildgalerie */
+            z-index: 1;
+        }
+
+        .static-textbox {
+            width: 400px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            border: 3px solid rgb(255, 255, 255);
+            text-align: center;
+            border-radius: 4px;
         }
 
         .gallery {
@@ -72,24 +91,6 @@
 
         .gallery img.clicked.pulse {
             animation: pulse 0.8s ease-in-out;
-        }
-
-        .textbox-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 7px;
-            z-index: 1;
-        }
-
-        .static-textbox {
-            width: 400px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 18px;
-            border: 3px solid rgb(255, 255, 255);
-            text-align: center;
-            border-radius: 4px;
         }
 
         /* Fortschrittsleiste */
@@ -197,5 +198,3 @@
 
 </body>
 </html>
-
-
