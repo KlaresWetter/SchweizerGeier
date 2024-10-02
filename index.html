@@ -168,7 +168,7 @@
     <div class="gallery">
         <div class="img-container">
             <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1', 50)">
-            <div class="overlay" id="overlay1"></div>
+            <!-- Overlay und Icon für das erste Bild entfernt -->
         </div>
         <div class="img-container">
             <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2', 100)">
@@ -237,4 +237,12 @@
                 document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
                 document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
                 
-                // Freischalten
+                // Freischalten des zweiten und dritten Bildes
+                if (progressPercent >= 50) {
+                    unlockImage(2);
+                }
+                if (progressPercent >= 100) {
+                    unlockImage(3);
+                }
+            }
+       
