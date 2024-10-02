@@ -12,7 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: black; /* Hauptfarbe schwarz */
+            background: black;
             overflow-y: auto;
             position: relative;
         }
@@ -23,18 +23,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0)); /* Linearer Verlauf */
-            z-index: 0; /* Hinter den Bildern */
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0));
+            z-index: 0;
         }
 
         .title {
-            font-size: 72px; /* Größere Schrift */
-            color: white; /* Textfarbe weiß */
-            font-weight: bold; /* Fett */
-            font-style: italic; /* Kursiv */
-            margin-bottom: 40px; /* Abstand zur Galerie */
-            z-index: 1; /* Vor dem Hintergrund */
-            text-align: center; /* Zentrieren des Textes */
+            font-size: 72px;
+            color: white;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 20px;
+            z-index: 1;
+            text-align: center;
         }
 
         .gallery {
@@ -43,18 +43,17 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
-            z-index: 1; /* Vor dem Hintergrund */
+            z-index: 1;
         }
 
         .gallery img {
             width: 450px;
             height: auto;
             cursor: pointer;
-            border: 3px solid white; /* Weiße Akzente */
+            border: 3px solid white;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* Puls-Animation */
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -73,6 +72,53 @@
         .gallery img.clicked.pulse {
             animation: pulse 0.8s ease-in-out;
         }
+
+        .textbox-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 7px;
+            z-index: 1;
+        }
+
+        .static-textbox {
+            width: 400px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            border: 3px solid rgb(255, 255, 255);
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        /* Fortschrittsleiste */
+        .progress-container {
+            width: 80%;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 3px solid white;
+            border-radius: 5px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: green;
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            line-height: 30px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -80,7 +126,13 @@
     <div class="background-effect"></div> <!-- Hintergrund-Effekt -->
 
     <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
-    
+
+    <!-- Fortschrittsleiste -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+
     <div class="textbox-container">
         <div class="static-textbox">
             Willkommen zum Schweizer Geier Sightseeing!<br>
@@ -92,31 +144,10 @@
         </div>
     </div>
     
-    <style>
-        .textbox-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 7px; /* Abstand zur Überschrift */
-            z-index: 1; /* Vor dem Hintergrund */
-        }
-    
-        .static-textbox {
-            width: 400px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.1); /* Halbtransparentes Weiß */
-            color: white;
-            font-size: 18px;
-            border: 3px solid rgb(255, 255, 255); /* Weiße Umrandung */
-            text-align: center;
-            border-radius: 4px; /* Leichte Abrundung der Ecken */
-        }
-    </style>
-
     <div class="gallery">
         <img src="Sources/Pitt212.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound1')">
         <img src="Sources/Pitt222.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound2')">
         <img src="Sources/Pitt232.jpg" alt="Klick mich!" onclick="playSoundAndAnimate(this, 'sound3')">
-        <!-- Weitere Bilder hier -->
     </div>
 
     <!-- Unterschiedliche Audio Dateien -->
@@ -133,6 +164,8 @@
     </audio>
 
     <script>
+        var clicks = 0; // Anzahl der Klicks
+
         function playSoundAndAnimate(image, soundId) {
             var sound = document.getElementById(soundId);
 
@@ -142,12 +175,25 @@
             // Klasse hinzufügen, um den Effekt auszulösen
             image.classList.add("clicked", "pulse");
 
-            // Nach 0.8 Sekunden die Klasse wieder entfernen, damit man wieder klicken kann
+            // Nach 0.8 Sekunden die Klasse wieder entfernen
             setTimeout(function() {
                 image.classList.remove("clicked", "pulse");
             }, 800);
+
+            // Klicks erhöhen und Fortschrittsleiste aktualisieren
+            updateProgress();
+        }
+
+        function updateProgress() {
+            if (clicks < 100) {
+                clicks++; // Erhöhe Klicks um 1
+                var progressPercent = (clicks / 100) * 100; // Berechne den Fortschritt
+                document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste anpassen
+                document.getElementById("progressText").innerText = progressPercent.toFixed(0) + "%"; // Fortschritt als Text anzeigen
+            }
         }
     </script>
 
 </body>
 </html>
+
