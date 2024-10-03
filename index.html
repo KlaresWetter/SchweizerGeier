@@ -49,8 +49,7 @@
 
         .img-container {
             position: relative;
-            width: 450px; /* Breite für Container angepasst */
-            height: auto; /* Höhe an Bildinhalt angepasst */
+            width: fit-content; /* Container passt sich der Bildgröße an */
         }
 
         .gallery img {
@@ -59,18 +58,16 @@
             cursor: pointer;
             border: 3px solid white;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
-            display: inline-block;
         }
 
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
-            display: block; /* Standardmäßig sichtbar für gesperrte Bilder */
-            z-index: 1;
+            z-index: 1; /* Overlay über dem Bild */
         }
 
         .locked-icon {
@@ -78,9 +75,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
+            z-index: 2; /* Icon über dem Overlay */
             width: 100px;
-            display: block; /* Standardmäßig sichtbar für gesperrte Bilder */
+            display: block; /* Standardmäßig sichtbar */
         }
 
         @keyframes pulse {
@@ -186,15 +183,15 @@
         <div class="progress-text" id="progressText">0%</div>
     </div>
 
-    <audio id="sound1" onended="updateProgress(1)">
+    <audio id="sound1" onended="updateProgress(50)">
         <source src="Sources/Sound 1.mp3" type="audio/mpeg">
     </audio>
     
-    <audio id="sound2" onended="updateProgress(1)">
+    <audio id="sound2" onended="updateProgress(50)">
         <source src="Sources/Sound 2.mp3" type="audio/mpeg">
     </audio>
 
-    <audio id="sound3" onended="updateProgress(1)">
+    <audio id="sound3" onended="updateProgress(50)">
         <source src="Sources/Sound 3.mp3" type="audio/mpeg">
     </audio>
 
