@@ -49,7 +49,6 @@
 
         .img-container {
             position: relative;
-            width: fit-content; /* Container passt sich der Bildgröße an */
         }
 
         .gallery img {
@@ -58,6 +57,7 @@
             cursor: pointer;
             border: 3px solid white;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: inline-block;
         }
 
         .overlay {
@@ -66,8 +66,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
-            z-index: 1; /* Overlay über dem Bild */
+            background-color: rgba(128, 128, 128, 0.7);
+            display: block;
+            z-index: 1;
         }
 
         .locked-icon {
@@ -75,9 +76,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2; /* Icon über dem Overlay */
+            z-index: 2;
             width: 100px;
-            display: block; /* Standardmäßig sichtbar */
+            display: block;
         }
 
         @keyframes pulse {
@@ -183,15 +184,15 @@
         <div class="progress-text" id="progressText">0%</div>
     </div>
 
-    <audio id="sound1" onended="updateProgress(50)">
+    <audio id="sound1" onended="updateProgress(1)">
         <source src="Sources/Sound 1.mp3" type="audio/mpeg">
     </audio>
     
-    <audio id="sound2" onended="updateProgress(50)">
+    <audio id="sound2" onended="updateProgress(1)">
         <source src="Sources/Sound 2.mp3" type="audio/mpeg">
     </audio>
 
-    <audio id="sound3" onended="updateProgress(50)">
+    <audio id="sound3" onended="updateProgress(1)">
         <source src="Sources/Sound 3.mp3" type="audio/mpeg">
     </audio>
 
