@@ -49,6 +49,8 @@
 
         .img-container {
             position: relative;
+            width: 450px; /* Breite für Container angepasst */
+            height: auto; /* Höhe an Bildinhalt angepasst */
         }
 
         .gallery img {
@@ -64,10 +66,10 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(128, 128, 128, 0.7);
-            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
+            display: block; /* Standardmäßig sichtbar für gesperrte Bilder */
             z-index: 1;
         }
 
@@ -78,7 +80,7 @@
             transform: translate(-50%, -50%);
             z-index: 2;
             width: 100px;
-            display: block;
+            display: block; /* Standardmäßig sichtbar für gesperrte Bilder */
         }
 
         @keyframes pulse {
