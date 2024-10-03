@@ -48,7 +48,7 @@
         }
 
         .img-container {
-            position: relative; /* Damit das Overlay über dem Bild liegt */
+            position: relative;
         }
 
         .gallery img {
@@ -66,9 +66,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(128, 128, 128, 0.7); /* Graue, transparente Farbschicht */
-            display: none; /* Standardmäßig versteckt */
-            z-index: 1; /* Overlay über dem Bild */
+            background-color: rgba(128, 128, 128, 0.7);
+            display: block;
+            z-index: 1;
         }
 
         .locked-icon {
@@ -76,9 +76,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2; /* Icon über dem Overlay */
-            width: 100px; /* Anpassen der Größe nach Bedarf */
-            display: none; /* Standardmäßig versteckt */
+            z-index: 2;
+            width: 100px;
+            display: block;
         }
 
         @keyframes pulse {
@@ -118,7 +118,6 @@
             border-radius: 4px;
         }
 
-        /* Fortschrittsleiste */
         .progress-container {
             width: 80%;
             height: 30px;
@@ -150,102 +149,95 @@
 </head>
 <body>
 
-    <div class="background-effect"></div> <!-- Hintergrund-Effekt -->
+    <div class="background-effect"></div>
 
-    <div class="title">Der Schweizer Geier...</div> <!-- Überschrift -->
+    <div class="title">Der Schweizer Geier...</div>
 
     <div class="textbox-container">
         <div class="static-textbox">
             Willkommen zum Schweizer Geier Sightseeing!<br>
             <a href="https://medal.tv/games/garrys-mod/clips/iuCgPJRRS8tg7eXBb/d1337JtKo453?invite=cr-MSxGY20sMTkxNDA1NjQ4LA" target="_blank">
-                Das Original...</a> 
-                /
-             <a href="https://medal.tv/games/garrys-mod/clips/iMMp4uR787L87hPow/d1337qfDtC7u?invite=cr-MSxTUEssMTkxNDA1NjQ4LA" target="_blank">
-                 Das Original 2...</a> 
+                Das Original...</a> /
+            <a href="https://medal.tv/games/garrys-mod/clips/iMMp4uR787L87hPow/d1337qfDtC7u?invite=cr-MSxTUEssMTkxNDA1NjQ4LA" target="_blank">
+                Das Original 2...</a> 
         </div>
     </div>
     
     <div class="gallery">
         <div class="img-container">
-            <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1', 50)">
-            <!-- Overlay für das erste Bild entfernt -->
+            <img src="Sources/Pitt212.jpg" alt="Klick mich!" class="enabled" onclick="playSoundAndAnimate(this, 'sound1')">
         </div>
         <div class="img-container">
-            <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2', 100)">
+            <img src="Sources/Pitt222.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound2')">
             <div class="overlay" id="overlay2"></div>
             <img src="Sources/chains.png" class="locked-icon" id="lockedIcon2" alt="Locked">
         </div>
         <div class="img-container">
-            <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3', 100)">
+            <img src="Sources/Pitt232.jpg" alt="Klick mich!" class="disabled" onclick="playSoundAndAnimate(this, 'sound3')">
             <div class="overlay" id="overlay3"></div>
             <img src="Sources/chains.png" class="locked-icon" id="lockedIcon3" alt="Locked">
         </div>
     </div>
 
-    <!-- Fortschrittsleiste am unteren Ende -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
         <div class="progress-text" id="progressText">0%</div>
     </div>
 
-    <!-- Unterschiedliche Audio Dateien -->
-    <audio id="sound1" onended="updateProgress()">
+    <audio id="sound1" onended="updateProgress(1)">
         <source src="Sources/Sound 1.mp3" type="audio/mpeg">
     </audio>
     
-    <audio id="sound2" onended="updateProgress()">
+    <audio id="sound2" onended="updateProgress(1)">
         <source src="Sources/Sound 2.mp3" type="audio/mpeg">
     </audio>
 
-    <audio id="sound3" onended="updateProgress()">
+    <audio id="sound3" onended="updateProgress(1)">
         <source src="Sources/Sound 3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        var completedSounds = 0; // Anzahl der vollständig abgespielten Sounds
+        var progress = 0;
 
-        function playSoundAndAnimate(image, soundId, unlockPercent) {
+        function playSoundAndAnimate(image, soundId) {
             var sound = document.getElementById(soundId);
 
-            // Überprüfen, ob das Bild freigeschaltet ist (nur für die gesperrten Bilder)
-            if (image.classList.contains("disabled") && completedSounds < unlockPercent) {
+            if (image.classList.contains("disabled")) {
                 alert("Dieses Bild ist noch gesperrt.");
-                return; // Früher zurückkehren, wenn das Bild gesperrt ist
+                return;
             }
 
-            // Sound abspielen
             sound.play();
-
-            // Klasse hinzufügen, um den Effekt auszulösen
             image.classList.add("clicked", "pulse");
 
-            // Nach 0.8 Sekunden die Klasse wieder entfernen
             setTimeout(function() {
                 image.classList.remove("clicked", "pulse");
             }, 800);
+        }
 
-            // Fortschritt aktualisieren und Bilder freischalten
-            if (completedSounds < unlockPercent) {
-                completedSounds = unlockPercent;
-                updateProgress();
+        function updateProgress(increment) {
+            progress += increment;
+            if (progress > 100) progress = 100;
+
+            document.getElementById("progressBar").style.width = progress + "%";
+            document.getElementById("progressText").textContent = progress + "%";
+
+            if (progress >= 50) {
+                unlockImage(2);
+            }
+            if (progress >= 100) {
+                unlockImage(3);
             }
         }
 
-        function updateProgress() {
-            if (completedSounds <= 100) { // Maximale Anzahl der Fortschrittsstufen ist 100
-                var progressPercent = completedSounds; // Fortschritt in Prozent
-                document.getElementById("progressBar").style.width = progressPercent + "%"; // Breite der Fortschrittsleiste an
-                document.getElementById("progressText").textContent = progressPercent + "%"; // Aktualisieren des Textes
-                
-                // Freischalten des zweiten Bildes
-                if (progressPercent >= 100) {
-                    document.querySelectorAll(".disabled").forEach(function(img) {
-                        img.classList.remove("disabled"); // Entfernen der Klasse 'disabled'
-                        img.nextElementSibling.style.display = "none"; // Overlay ausblenden
-                        img.nextElementSibling.nextElementSibling.style.display = "none"; // Icon ausblenden
-                    });
-                }
-            }
+        function unlockImage(imageNumber) {
+            var overlay = document.getElementById("overlay" + imageNumber);
+            var lockedIcon = document.getElementById("lockedIcon" + imageNumber);
+            var image = overlay.previousElementSibling;
+
+            overlay.style.display = "none";
+            lockedIcon.style.display = "none";
+            image.classList.remove("disabled");
         }
     </script>
 
